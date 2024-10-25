@@ -11,6 +11,9 @@ if (!fs.existsSync(assetsDir)) {
     fs.mkdirSync(assetsDir);
 }
 
+// Servir les fichiers statiques du dossier assets
+app.use('/assets', express.static(assetsDir));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -29,12 +32,12 @@ app.post('/', async (req, res) => {
         // Sauvegarde de l'image QR en format PNG dans le dossier assets
         const base64Data = qrCode.replace(/^data:image\/png;base64,/, "");
         const sanitizedText = text.replace(/[<>:"/\\|?*]/g, ''); // Enlève les caractères invalides
-const fileName = path.join(assetsDir, `${sanitizedText}.png`); // Crée un nom de fichier basé sur le texte
+        const fileName = path.join(assetsDir, `${sanitizedText}.png`); // Crée un nom de fichier basé sur le texte
         fs.writeFileSync(fileName, base64Data, 'base64'); // Sauvegarde le fichier
         console.log(`Code QR généré et enregistré sous ${fileName}`);
 
-        // Renvoie uniquement l'URL du code QR en base64
-        res.send(qrCode);
+        // Renvoie uniquement l'URL de l'image QR générée
+        res.send(`/assets/${sanitizedText}.png`);
     } catch (err) {
         console.error("Erreur lors de la génération du code QR:", err);
         res.status(500).send("Erreur lors de la génération du code QR"); // Gère les erreurs

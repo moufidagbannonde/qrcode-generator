@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,113 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    </head>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        #qrCodeContainer {
+            margin-top: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        img {
+            margin-top: 15px;
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        img:hover {
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            margin-top: 30px;
+            width: 100%;
+            position: relative;
+        }
+        
+        footer a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        
+        footer a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+
 <body>
     <h1 class="animate__animated animate__fadeInDown">Générateur de Code QR</h1>
     <div class="form-container animate__animated animate__bounceIn">
@@ -20,10 +127,10 @@
     <div id="qrCodeContainer" style="margin-top: 20px;"></div>
 
     <script>
-        document.getElementById("qrForm").addEventListener("submit", async function(event) {
+        document.getElementById("qrForm").addEventListener("submit", async function (event) {
             event.preventDefault();
             const text = document.getElementById("text").value;
-            const formData = new URLSearchParams();
+            const formData = new URLSearchParams(); 
             formData.append("text", text);
 
             try {
@@ -39,6 +146,7 @@
                     throw new Error("Erreur lors de la génération du code QR");
                 }
 
+                // Récupère l'URL de l'image générée
                 const qrImageUrl = await response.text();
                 document.getElementById("qrCodeContainer").innerHTML = `<h2>Code QR généré :</h2><img src="${qrImageUrl}" alt="Code QR" class="animate__animated animate__fadeIn"/>`;
                 this.reset();
@@ -56,17 +164,18 @@
     <footer class="text-center mt-4">
         <div>
             <a href="https://x.com/moufidteixeira" target="_blank" class="mx-3">
-                <img src="https://img.icons8.com/ios-filled/50/007bff/twitter.png" alt="Twitter" style="width: 30px;"/>
+                <img src="https://img.icons8.com/ios-filled/50/007bff/twitter.png" alt="Twitter" style="width: 30px;" />
             </a>
             <a href="https://github.com/moufidagbannonde" target="_blank" class="mx-3">
-                <img src="https://img.icons8.com/ios-filled/50/007bff/github.png" alt="GitHub" style="width: 30px;"/>
+                <img src="https://img.icons8.com/ios-filled/50/007bff/github.png" alt="GitHub" style="width: 30px;" />
             </a>
             <a href="https://join.skype.com/invite/CBUjtRObGYXs" target="_blank" class="mx-3">
-                <img src="https://img.icons8.com/ios-filled/50/007bff/skype.png" alt="Skype" style="width: 30px;"/>
+                <img src="https://img.icons8.com/ios-filled/50/007bff/skype.png" alt="Skype" style="width: 30px;" />
             </a>
-           
+
         </div>
         <p class="mt-3">&copy; 2024 Moufid Teixeira. Tous droits réservés.</p>
     </footer>
 </body>
+
 </html>
